@@ -5,7 +5,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
 
-pub(crate) const APP_NAME: &str = "Graphite";
+pub(crate) const APP_NAME: &str = "PhotoCoop";
 pub(crate) const APP_BIN: &str = "graphite";
 
 pub(crate) fn workspace_path() -> PathBuf {

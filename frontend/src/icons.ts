@@ -425,6 +425,7 @@ import GeneralArtboardTool from "/../branding/assets/icon-24px-two-tone/general-
 import GeneralEyedropperTool from "/../branding/assets/icon-24px-two-tone/general-eyedropper-tool.svg";
 import GeneralFillTool from "/../branding/assets/icon-24px-two-tone/general-fill-tool.svg";
 import GeneralGradientTool from "/../branding/assets/icon-24px-two-tone/general-gradient-tool.svg";
+import GeneralMarqueeTool from "/../branding/assets/icon-24px-two-tone/general-marquee-tool.svg"; // PHOTOCOOP-HOOK
 import GeneralNavigateTool from "/../branding/assets/icon-24px-two-tone/general-navigate-tool.svg";
 import GeneralSelectTool from "/../branding/assets/icon-24px-two-tone/general-select-tool.svg";
 import RasterBrushTool from "/../branding/assets/icon-24px-two-tone/raster-brush-tool.svg";
@@ -448,6 +449,7 @@ const TWO_TONE_24PX = {
 	GeneralEyedropperTool: { svg: GeneralEyedropperTool, size: 24 },
 	GeneralFillTool: { svg: GeneralFillTool, size: 24 },
 	GeneralGradientTool: { svg: GeneralGradientTool, size: 24 },
+	GeneralMarqueeTool: { svg: GeneralMarqueeTool, size: 24 }, // PHOTOCOOP-HOOK
 	GeneralNavigateTool: { svg: GeneralNavigateTool, size: 24 },
 	GeneralSelectTool: { svg: GeneralSelectTool, size: 24 },
 	RasterBrushTool: { svg: RasterBrushTool, size: 24 },

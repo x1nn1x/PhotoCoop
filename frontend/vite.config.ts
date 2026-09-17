@@ -31,6 +31,8 @@ export default defineConfig(({ mode }) => {
 		server: {
 			port: 8080,
 			host: "0.0.0.0",
+			// PHOTOCOOP-HOOK: allow importing the PhotoCoop overlay from the repo root.
+			fs: { allow: [path.resolve(projectRootDir, "..")] },
 		},
 	};
 });

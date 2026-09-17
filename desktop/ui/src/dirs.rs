@@ -3,9 +3,9 @@ use std::io;
 use std::path::{Path, PathBuf};
 
 #[cfg(target_os = "linux")]
-const APP_DIRECTORY_NAME: &str = "graphite";
+const APP_DIRECTORY_NAME: &str = "photocoop";
 #[cfg(not(target_os = "linux"))]
-const APP_DIRECTORY_NAME: &str = "Graphite";
+const APP_DIRECTORY_NAME: &str = "PhotoCoop";
 
 pub(crate) fn app_tmp_dir() -> PathBuf {
 	let path = std::env::temp_dir().join(APP_DIRECTORY_NAME);

@@ -34,4 +34,4 @@ pub(crate) const HOST_HELLO_TIMEOUT: Duration = Duration::from_secs(5);
 pub(crate) const HOST_SHUTDOWN_TIMEOUT: Duration = Duration::from_secs(5);
 
 #[cfg(target_os = "macos")]
-pub(crate) const IPC_BOOTSTRAP_PREFIX: &str = "art.graphite.Graphite.ipc.";
+pub(crate) const IPC_BOOTSTRAP_PREFIX: &str = "dev.photocoop.PhotoCoop.ipc.";

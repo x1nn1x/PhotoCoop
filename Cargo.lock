@@ -2342,6 +2342,7 @@ dependencies = [
  "node-macro",
  "num_enum",
  "once_cell",
+ "photocoop-identity",
  "preprocessor",
  "reqwest",
  "serde",
@@ -4106,6 +4107,10 @@ checksum = "e57fef6bc5981e38c2ce2d63bfa546861309f875b8a75f092d1d54ae2d64f266"
 dependencies = [
  "siphasher",
 ]
+
+[[package]]
+name = "photocoop-identity"
+version = "0.0.0"
 
 [[package]]
 name = "pico-args"

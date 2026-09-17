@@ -18,14 +18,14 @@ fn main() {
 		res.set("FileVersion", "0.0.0.0");
 		res.set("ProductVersion", "0.0.0.0");
 
-		res.set("OriginalFilename", "Graphite.exe");
+		res.set("OriginalFilename", "PhotoCoop.exe");
 
-		res.set("FileDescription", "Graphite");
-		res.set("ProductName", "Graphite");
+		res.set("FileDescription", "PhotoCoop");
+		res.set("ProductName", "PhotoCoop");
 
 		// TODO: Pull this year from the Git commit date
-		res.set("LegalCopyright", "Copyright © 2026 Graphite Labs, LLC");
-		res.set("CompanyName", "Graphite Labs, LLC");
+		res.set("LegalCopyright", "Copyright © 2026 PhotoCoop contributors; Graphite engine © Graphite contributors");
+		res.set("CompanyName", "PhotoCoop");
 
 		res.compile().expect("Failed to compile Windows resources");
 	}

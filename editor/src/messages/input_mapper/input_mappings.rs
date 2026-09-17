@@ -116,6 +116,15 @@ pub fn input_mappings(zoom_with_scroll: bool) -> Mapping {
 		entry!(KeyDown(MouseRight); action_dispatch=SelectToolMessage::Abort),
 		entry!(KeyDown(Escape); action_dispatch=SelectToolMessage::Abort),
 		//
+		// PHOTOCOOP-HOOK: MarqueeToolMessage
+		entry!(KeyDown(MouseLeft); action_dispatch=MarqueeToolMessage::PointerDown),
+		entry!(PointerMove; refresh_keys=[Shift, Alt], action_dispatch=MarqueeToolMessage::PointerMove { constrain: Shift, center: Alt }),
+		entry!(KeyUp(MouseLeft); action_dispatch=MarqueeToolMessage::PointerUp { constrain: Shift, center: Alt }),
+		entry!(KeyDown(MouseRight); action_dispatch=MarqueeToolMessage::Abort),
+		entry!(KeyDown(Escape); action_dispatch=MarqueeToolMessage::Abort),
+		entry!(KeyDown(Delete); action_dispatch=MarqueeToolMessage::Delete),
+		entry!(KeyDown(Backspace); action_dispatch=MarqueeToolMessage::Delete),
+		//
 		// ArtboardToolMessage
 		entry!(KeyDown(MouseLeft); action_dispatch=ArtboardToolMessage::PointerDown),
 		entry!(PointerMove; refresh_keys=[Shift, Alt], action_dispatch=ArtboardToolMessage::PointerMove { constrain_axis_or_aspect: Shift, center: Alt }),
@@ -325,7 +334,7 @@ pub fn input_mappings(zoom_with_scroll: bool) -> Mapping {
 		entry!(KeyDown(KeyP); action_dispatch=ToolMessage::ActivateToolPen),
 		entry!(KeyDown(KeyN); action_dispatch=ToolMessage::ActivateToolFreehand),
 		entry!(KeyDown(KeyL); action_dispatch=ToolMessage::ActivateToolShapeLine),
-		entry!(KeyDown(KeyM); action_dispatch=ToolMessage::ActivateToolShapeRectangle),
+		entry!(KeyDown(KeyM); action_dispatch=ToolMessage::ActivateToolMarquee), // PHOTOCOOP-HOOK: Photoshop M = marquee (Graphite used M for rectangle)
 		entry!(KeyDown(KeyE); action_dispatch=ToolMessage::ActivateToolShapeEllipse),
 		entry!(KeyDown(KeyY); action_dispatch=ToolMessage::ActivateToolShape),
 		entry!(KeyDown(KeyB); action_dispatch=ToolMessage::ActivateToolBrush),

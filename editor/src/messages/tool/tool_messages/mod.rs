@@ -4,6 +4,9 @@ pub mod eyedropper_tool;
 pub mod fill_tool;
 pub mod freehand_tool;
 pub mod gradient_tool;
+// PHOTOCOOP-HOOK: compile the PhotoCoop marquee tool from the overlay folder.
+#[path = "../../../../../photocoop/tools/marquee_tool.rs"]
+pub mod marquee_tool;
 pub mod navigate_tool;
 pub mod path_tool;
 pub mod pen_tool;

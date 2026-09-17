@@ -20,7 +20,7 @@ impl DialogLayoutHolder for LicensesDialog {
 		let button_definitions: &[(&str, &str, fn() -> Message)] = &[
 			("Code", "Source Code License", || {
 				FrontendMessage::TriggerVisitLink {
-					url: "https://graphite.art/license#source-code".into(),
+					url: photocoop_identity::GRAPHITE_LICENSE_URL.into(),
 				}
 				.into()
 			}),
@@ -43,24 +43,25 @@ impl DialogLayoutHolder for LicensesDialog {
 
 impl LayoutHolder for LicensesDialog {
 	fn layout(&self) -> Layout {
+		// PHOTOCOOP-HOOK: fork licensing copy; Graphite source license is unchanged.
 		let year = &self.localized_commit_year;
 		let description = format!(
 			"
-			Graphite source code is copyright © {year} Graphite contrib-\n\
-			utors and is available under both the MIT and Apache 2.0\n\
-			licenses. See \"Source Code License\" for details.\n\
+			PhotoCoop is a fork of Graphite. Graphite source code is\n\
+			copyright © {year} Graphite contributors and is available under\n\
+			both the MIT and Apache 2.0 licenses.\n\
 			\n\
-			The Graphite logo, icons, and visual identity are copyright ©\n\
-			{year} Graphite Labs, LLC. See \"Branding License\" for details.\n\
+			PhotoCoop logos and icons are original PhotoCoop artwork and\n\
+			replace Graphite's proprietary branding.\n\
 			\n\
-			Graphite is distributed with third-party open source code\n\
+			PhotoCoop is distributed with third-party open source code\n\
 			dependencies. See \"Dependency Licenses\" for details.
 			"
 		);
 		let description = description.trim();
 
 		Layout(vec![
-			LayoutGroup::row(vec![TextLabel::new("Graphite is free, open source software").bold(true).widget_instance()]),
+			LayoutGroup::row(vec![TextLabel::new(photocoop_identity::licenses_intro()).bold(true).widget_instance()]),
 			LayoutGroup::row(vec![TextLabel::new(description).multiline(true).widget_instance()]),
 		])
 	}

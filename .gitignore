@@ -1,4 +1,20 @@
-branding/
+# PHOTOCOOP-HOOK: only ignore Graphite's generated branding dir, not photocoop/branding.
+/branding/
+# Local desktop builds live here; ship them via GitHub Releases, not git.
+/photocoop/PhotoCoop.app/
+/photocoop/dist/
+# Editor / agent tooling — never publish these
+.cursor/
+.cursorignore
+.agent/
+.agents/
+AGENTS.md
+.claude/
+.codex/
+.continue/
+.windsurf/
+.github/copilot-instructions.md
+*.canvas.tsx
 target/
 third-party-licenses.txt*
 result/

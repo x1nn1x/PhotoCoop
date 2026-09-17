@@ -267,6 +267,7 @@ impl ToolData {
 							ToolRole::Normal(tool) =>
 								ToolEntry::new(tool.tool_type(), tool.icon_name())
 									.tooltip_label(tool.tooltip_label())
+									.tooltip_description(tool.tooltip_description())
 									.tooltip_shortcut(action_shortcut!(tool_type_to_activate_tool_message(tool.tool_type()))),
 							ToolRole::Shape(shape) =>
 								ToolEntry::new(shape.tool_type(), shape.icon_name())
@@ -367,6 +368,7 @@ pub enum ToolType {
 	// General tool group
 	#[default]
 	Select,
+	Marquee, // PHOTOCOOP-HOOK
 	Artboard,
 	Navigate,
 	Eyedropper,
@@ -417,6 +419,7 @@ fn list_tools_in_groups() -> Vec<Vec<ToolRole>> {
 		vec![
 			// General tool group
 			ToolRole::Normal(Box::<select_tool::SelectTool>::default()),
+			ToolRole::Normal(Box::<marquee_tool::MarqueeTool>::default()), // PHOTOCOOP-HOOK
 			ToolRole::Normal(Box::<artboard_tool::ArtboardTool>::default()),
 			ToolRole::Normal(Box::<navigate_tool::NavigateTool>::default()),
 			ToolRole::Normal(Box::<eyedropper_tool::EyedropperTool>::default()),
@@ -469,6 +472,7 @@ pub fn tool_message_to_tool_type(tool_message: &ToolMessage) -> ToolType {
 	match tool_message {
 		// General tool group
 		ToolMessage::Select(_) => ToolType::Select,
+		ToolMessage::Marquee(_) => ToolType::Marquee, // PHOTOCOOP-HOOK
 		ToolMessage::Artboard(_) => ToolType::Artboard,
 		ToolMessage::Navigate(_) => ToolType::Navigate,
 		ToolMessage::Eyedropper(_) => ToolType::Eyedropper,
@@ -498,6 +502,7 @@ pub fn tool_type_to_activate_tool_message(tool_type: ToolType) -> ToolMessageDis
 	match tool_type {
 		// General tool group
 		ToolType::Select => ToolMessageDiscriminant::ActivateToolSelect,
+		ToolType::Marquee => ToolMessageDiscriminant::ActivateToolMarquee, // PHOTOCOOP-HOOK
 		ToolType::Artboard => ToolMessageDiscriminant::ActivateToolArtboard,
 		ToolType::Navigate => ToolMessageDiscriminant::ActivateToolNavigate,
 		ToolType::Eyedropper => ToolMessageDiscriminant::ActivateToolEyedropper,

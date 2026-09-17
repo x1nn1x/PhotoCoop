@@ -58,11 +58,13 @@ impl LayoutHolder for MenuBarMessageHandler {
 			.label({
 				#[cfg(not(target_os = "macos"))]
 				{
-					"About Graphite…"
+					// PHOTOCOOP-HOOK
+					"About PhotoCoop…"
 				}
 				#[cfg(target_os = "macos")]
 				{
-					"About Graphite"
+					// PHOTOCOOP-HOOK
+					"About PhotoCoop"
 				}
 			})
 			.icon("GraphiteLogo")
@@ -79,7 +81,12 @@ impl LayoutHolder for MenuBarMessageHandler {
 				.label("")
 				.flush(true)
 				.icon("GraphiteLogo")
-				.on_commit(|_| FrontendMessage::TriggerVisitLink { url: "https://graphite.art".into() }.into())
+				.on_commit(|_| {
+					FrontendMessage::TriggerVisitLink {
+						url: photocoop_identity::GRAPHITE_WEBSITE_URL.into(),
+					}
+					.into()
+				})
 				.widget_instance(),
 			#[cfg(target_os = "macos")]
 			TextButton::new("Graphite")
@@ -90,7 +97,7 @@ impl LayoutHolder for MenuBarMessageHandler {
 					vec![preferences],
 					vec![
 						MenuListEntry::new("Hide Graphite")
-							.label("Hide Graphite")
+							.label("Hide PhotoCoop")
 							.tooltip_shortcut(action_shortcut!(AppWindowMessageDiscriminant::Hide))
 							.on_commit(|_| AppWindowMessage::Hide.into()),
 						MenuListEntry::new("Hide Others")
@@ -104,7 +111,7 @@ impl LayoutHolder for MenuBarMessageHandler {
 					],
 					vec![
 						MenuListEntry::new("Quit Graphite")
-							.label("Quit Graphite")
+							.label("Quit PhotoCoop")
 							.tooltip_shortcut(action_shortcut!(AppWindowMessageDiscriminant::Close))
 							.on_commit(|_| AppWindowMessage::Close.into()),
 					],
@@ -691,25 +698,25 @@ impl LayoutHolder for MenuBarMessageHandler {
 					vec![
 						MenuListEntry::new("Donate to Graphite").label("Donate to Graphite").icon("Heart").on_commit(|_| {
 							FrontendMessage::TriggerVisitLink {
-								url: "https://graphite.art/donate/".into(),
+								url: photocoop_identity::GRAPHITE_DONATE_URL.into(),
 							}
 							.into()
 						}),
-						MenuListEntry::new("User Manual").label("User Manual").icon("UserManual").on_commit(|_| {
+						MenuListEntry::new("User Manual").label("Graphite User Manual").icon("UserManual").on_commit(|_| {
 							FrontendMessage::TriggerVisitLink {
-								url: "https://graphite.art/learn/".into(),
+								url: photocoop_identity::GRAPHITE_LEARN_URL.into(),
 							}
 							.into()
 						}),
-						MenuListEntry::new("Report a Bug").label("Report a Bug").icon("Bug").on_commit(|_| {
+						MenuListEntry::new("Report a Bug").label("Report a Graphite Bug").icon("Bug").on_commit(|_| {
 							FrontendMessage::TriggerVisitLink {
 								url: "https://github.com/GraphiteEditor/Graphite/issues/new".into(),
 							}
 							.into()
 						}),
-						MenuListEntry::new("Visit on GitHub").label("Visit on GitHub").icon("Website").on_commit(|_| {
+						MenuListEntry::new("Visit on GitHub").label("Graphite on GitHub").icon("Website").on_commit(|_| {
 							FrontendMessage::TriggerVisitLink {
-								url: "https://github.com/GraphiteEditor/Graphite".into(),
+								url: photocoop_identity::WEBSITE_URL.into(),
 							}
 							.into()
 						}),

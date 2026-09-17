@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 120" fill="currentColor">
+  <rect x="8" y="28" width="64" height="64" rx="16" fill="none" stroke="currentColor" stroke-width="6"/>
+  <rect x="36" y="44" width="64" height="64" rx="16"/>
+  <circle cx="68" cy="76" r="10" fill="none" stroke="currentColor" stroke-width="5"/>
+  <text x="124" y="82" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" letter-spacing="-1.5">PhotoCoop</text>
+</svg>

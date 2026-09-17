@@ -34,6 +34,8 @@ members = [
 	"tools/third-party-licenses",
 	"tools/editor-message-tree",
 	"tools/node-docs",
+	# PHOTOCOOP-HOOK
+	"photocoop/identity",
 ]
 default-members = [
 	"editor",

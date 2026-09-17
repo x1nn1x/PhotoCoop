@@ -1,0 +1,31 @@
+/* PHOTOCOOP-HOOK: loaded after Graphite's Editor.svelte tokens. */
+
+:root {
+	--color-0-black: #061014;
+	--color-1-nearblack: #0b1c21;
+	--color-2-mildblack: #12262c;
+	--color-3-darkgray: #1a333b;
+	--color-4-dimgray: #25424b;
+	--color-5-dullgray: #335560;
+	--color-6-lowergray: #45707c;
+	--color-7-middlegray: #5d8a96;
+	--color-8-uppergray: #7aa3ad;
+	--color-9-palegray: #97bac2;
+	--color-a-softgray: #b3cfd5;
+	--color-b-lightgray: #cde0e4;
+	--color-c-brightgray: #e0ecee;
+	--color-d-mildwhite: #edf4f5;
+	--color-e-nearwhite: #f4f8f8;
+	--color-f-white: #fbffff;
+	--color-error-red: #ff6b4a;
+	--color-warning-yellow: #e4c36a;
+	--color-overlay-blue: #2ec4b6;
+}
+
+body::before {
+	background: #12262c !important;
+}
+
+body::after {
+	border-color: #2ec4b6 transparent #2ec4b6 transparent;
+}

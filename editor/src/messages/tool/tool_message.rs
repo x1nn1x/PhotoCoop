@@ -13,6 +13,8 @@ pub enum ToolMessage {
 	#[child]
 	Select(SelectToolMessage),
 	#[child]
+	Marquee(MarqueeToolMessage), // PHOTOCOOP-HOOK
+	#[child]
 	Artboard(ArtboardToolMessage),
 	#[child]
 	Navigate(NavigateToolMessage),
@@ -53,6 +55,7 @@ pub enum ToolMessage {
 
 	// General tools
 	ActivateToolSelect,
+	ActivateToolMarquee, // PHOTOCOOP-HOOK
 	ActivateToolArtboard,
 	ActivateToolNavigate,
 	ActivateToolEyedropper,

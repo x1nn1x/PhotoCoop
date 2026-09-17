@@ -5,7 +5,7 @@ use std::path::{Path, PathBuf};
 
 use crate::common::*;
 
-const APP_ID: &str = "art.graphite.Graphite";
+const APP_ID: &str = "dev.photocoop.PhotoCoop";
 
 const ICONS_FILE_NAME: &str = "graphite.icns";
 

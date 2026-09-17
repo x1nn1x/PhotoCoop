@@ -119,7 +119,7 @@ pub(crate) fn spawn_host(acceleration: bool) -> Result<HostHandle, UiError> {
 
 	#[cfg(all(target_os = "macos", feature = "accelerated_paint"))]
 	let frame_service = if acceleration {
-		let name = format!("art.graphite.Graphite.cef-frames.{}.{:x}", std::process::id(), rand::random::<u64>());
+		let name = format!("dev.photocoop.PhotoCoop.cef-frames.{}.{:x}", std::process::id(), rand::random::<u64>()); // PHOTOCOOP-HOOK
 		match plane::create_service(&name) {
 			Ok(port) => {
 				config.frame_service = Some(name);

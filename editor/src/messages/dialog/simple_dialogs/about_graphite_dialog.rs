@@ -1,4 +1,3 @@
-use crate::application::commit_info_localized;
 use crate::messages::layout::utility_types::widget_prelude::*;
 use crate::messages::prelude::*;
 
@@ -10,7 +9,8 @@ pub struct AboutGraphiteDialog {
 
 impl DialogLayoutHolder for AboutGraphiteDialog {
 	const ICON: &'static str = "GraphiteLogo";
-	const TITLE: &'static str = "About Graphite";
+	// PHOTOCOOP-HOOK
+	const TITLE: &'static str = photocoop_identity::ABOUT_TITLE;
 
 	fn layout_buttons(&self) -> Layout {
 		let widgets = vec![TextButton::new("OK").emphasized(true).on_update(|_| FrontendMessage::DialogClose.into()).widget_instance()];
@@ -20,8 +20,8 @@ impl DialogLayoutHolder for AboutGraphiteDialog {
 
 	fn layout_column_2(&self) -> Layout {
 		let links = [
-			("Heart", "Donate", "https://graphite.art/donate/"),
-			("GraphiteLogo", "Website", "https://graphite.art"),
+			("Heart", "Donate to Graphite", photocoop_identity::GRAPHITE_DONATE_URL),
+			("GraphiteLogo", "Graphite Website", photocoop_identity::GRAPHITE_WEBSITE_URL),
 			("Volunteer", "Volunteer", "https://graphite.art/volunteer/"),
 			("Credits", "Credits", "https://github.com/GraphiteEditor/Graphite/graphs/contributors"),
 		];
@@ -58,9 +58,12 @@ impl DialogLayoutHolder for AboutGraphiteDialog {
 impl LayoutHolder for AboutGraphiteDialog {
 	fn layout(&self) -> Layout {
 		Layout(vec![
-			LayoutGroup::row(vec![TextLabel::new("About this release").bold(true).widget_instance()]),
-			LayoutGroup::row(vec![TextLabel::new(commit_info_localized(&self.localized_commit_date)).multiline(true).widget_instance()]),
-			LayoutGroup::row(vec![TextLabel::new(format!("Copyright © {} Graphite contributors", self.localized_commit_year)).widget_instance()]),
+			LayoutGroup::row(vec![TextLabel::new(photocoop_identity::ABOUT_HEADING).bold(true).widget_instance()]),
+			LayoutGroup::row(vec![
+				TextLabel::new(photocoop_identity::about_body(&self.localized_commit_date, &self.localized_commit_year))
+					.multiline(true)
+					.widget_instance(),
+			]),
 		])
 	}
 }

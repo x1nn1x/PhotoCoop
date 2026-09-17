@@ -1,0 +1,8 @@
+PhotoCoop branding assets
+Copyright (c) PhotoCoop contributors
+
+These logos, icons, and raster app icons are original PhotoCoop artwork.
+They are not Graphite brand assets and are not licensed under the Graphite
+Branding License. You may use them as part of PhotoCoop.
+
+Graphite source code remains MIT OR Apache-2.0 as provided by Graphite contributors.

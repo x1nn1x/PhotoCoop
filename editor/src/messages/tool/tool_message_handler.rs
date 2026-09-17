@@ -60,6 +60,14 @@ impl MessageHandler<ToolMessage, ToolMessageContext<'_>> for ToolMessageHandler 
 			),
 
 			ToolMessage::ActivateToolSelect => responses.add_front(ToolMessage::ActivateTool { tool_type: ToolType::Select }),
+			// PHOTOCOOP-HOOK: M activates marquee; pressing M again cycles rectangle/ellipse like Photoshop.
+			ToolMessage::ActivateToolMarquee => {
+				if self.tool_is_active && self.tool_state.tool_data.active_tool_type.get_tool() == ToolType::Marquee {
+					responses.add(MarqueeToolMessage::CycleShape);
+				} else {
+					responses.add_front(ToolMessage::ActivateTool { tool_type: ToolType::Marquee });
+				}
+			}
 			ToolMessage::ActivateToolArtboard => responses.add_front(ToolMessage::ActivateTool { tool_type: ToolType::Artboard }),
 			ToolMessage::ActivateToolNavigate => responses.add_front(ToolMessage::ActivateTool { tool_type: ToolType::Navigate }),
 			ToolMessage::ActivateToolEyedropper => responses.add_front(ToolMessage::ActivateTool { tool_type: ToolType::Eyedropper }),
@@ -351,6 +359,7 @@ impl MessageHandler<ToolMessage, ToolMessageContext<'_>> for ToolMessageHandler 
 	fn actions(&self) -> ActionList {
 		let mut list = actions!(ToolMessageDiscriminant;
 			ActivateToolSelect,
+			ActivateToolMarquee, // PHOTOCOOP-HOOK
 			ActivateToolArtboard,
 			ActivateToolNavigate,
 			ActivateToolEyedropper,

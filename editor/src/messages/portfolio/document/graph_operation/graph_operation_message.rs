@@ -188,6 +188,15 @@ pub enum GraphOperationMessage {
 		dimensions: DVec2,
 	},
 	RemoveArtboards,
+	// PHOTOCOOP-HOOK: spatial marquee punch / lift on the current layer
+	MarqueeRegionEdit {
+		layers: Vec<LayerNodeIdentifier>,
+		start: DVec2,
+		end: DVec2,
+		ellipse: bool,
+		lift: bool,
+		keep_inside: bool,
+	},
 	NewSvg {
 		id: NodeId,
 		svg: String,

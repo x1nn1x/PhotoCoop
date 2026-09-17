@@ -543,6 +543,17 @@ impl MessageHandler<GraphOperationMessage, GraphOperationMessageContext<'_>> for
 				// (skipped automatically when identity, so file-open with content at origin creates no Transform node).
 				modify_inputs.transform_set(placement_transform, TransformIn::Local, false);
 			}
+			// PHOTOCOOP-HOOK
+			GraphOperationMessage::MarqueeRegionEdit {
+				layers,
+				start,
+				end,
+				ellipse,
+				lift,
+				keep_inside,
+			} => {
+				crate::messages::tool::tool_messages::marquee_tool::apply_marquee_region_edit(network_interface, layers, start, end, ellipse, lift, keep_inside, responses);
+			}
 		}
 	}
 
