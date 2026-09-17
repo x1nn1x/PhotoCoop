@@ -19,7 +19,9 @@ Remotes:
 | `upstream` | https://github.com/GraphiteEditor/Graphite.git |
 | `origin` | your PhotoCoop GitHub repo |
 
-## Every time Graphite moves
+## When Graphite moves
+
+A daily GitHub Action (`Upstream Sync Check`) compares your `photocoop` branch to Graphite `master`. If you are behind, it opens (or refreshes) one issue labeled `upstream-sync` with the missing commits and the sync commands below. When you are caught up, it closes that issue automatically. You can also run the workflow manually from the Actions tab.
 
 ```sh
 # 1. Merge latest Graphite (fails cleanly if you have uncommitted edits)

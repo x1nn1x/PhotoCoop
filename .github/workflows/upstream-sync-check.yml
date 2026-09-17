@@ -1,0 +1,145 @@
+name: "Upstream Sync Check"
+
+# Alerts when Graphite has commits PhotoCoop has not merged yet.
+# Opens (or refreshes) one GitHub issue so you know to sync, rebuild, and publish.
+
+on:
+  schedule:
+    # Daily at 14:00 UTC
+    - cron: "0 14 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: upstream-sync-check
+  cancel-in-progress: true
+
+jobs:
+  check-upstream:
+    # Only on PhotoCoop forks — never on Graphite itself
+    if: github.repository != 'GraphiteEditor/Graphite'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout PhotoCoop branch
+        uses: actions/checkout@v6
+        with:
+          ref: photocoop
+          fetch-depth: 0
+
+      - name: 🔍 Compare to Graphite master
+        id: compare
+        run: |
+          set -euo pipefail
+
+          git remote add graphite https://github.com/GraphiteEditor/Graphite.git
+          git fetch graphite master
+
+          LOCAL_SHORT="$(git rev-parse --short HEAD)"
+          UPSTREAM_SHORT="$(git rev-parse --short graphite/master)"
+
+          echo "photocoop:  $LOCAL_SHORT"
+          echo "graphite:   $UPSTREAM_SHORT"
+
+          echo "local=$LOCAL_SHORT" >> "$GITHUB_OUTPUT"
+          echo "upstream=$UPSTREAM_SHORT" >> "$GITHUB_OUTPUT"
+
+          if git merge-base --is-ancestor graphite/master HEAD; then
+            echo "behind=false" >> "$GITHUB_OUTPUT"
+            echo "PhotoCoop already includes Graphite master."
+            exit 0
+          fi
+
+          BEHIND="$(git rev-list --count HEAD..graphite/master)"
+          echo "behind=true" >> "$GITHUB_OUTPUT"
+          echo "count=$BEHIND" >> "$GITHUB_OUTPUT"
+          echo "PhotoCoop is $BEHIND commit(s) behind Graphite master."
+
+          {
+            echo 'commits<<EOF'
+            git log --oneline HEAD..graphite/master | head -30
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
+
+      - name: 📣 Open or refresh sync issue
+        if: steps.compare.outputs.behind == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          LOCAL: ${{ steps.compare.outputs.local }}
+          UPSTREAM: ${{ steps.compare.outputs.upstream }}
+          COUNT: ${{ steps.compare.outputs.count }}
+          COMMITS: ${{ steps.compare.outputs.commits }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          TITLE="Sync Graphite: ${COUNT} commit(s) behind (${UPSTREAM})"
+          LABEL="upstream-sync"
+
+          if ! gh label list --json name --jq '.[].name' | grep -qx "$LABEL"; then
+            gh label create "$LABEL" \
+              --description "PhotoCoop is behind GraphiteEditor/Graphite" \
+              --color "0E8A16" || true
+          fi
+
+          BODY=$(cat <<EOF
+          ## Graphite has updates PhotoCoop does not
+
+          | | |
+          |---|---|
+          | PhotoCoop \`photocoop\` | \`${LOCAL}\` |
+          | Graphite \`master\` | \`${UPSTREAM}\` |
+          | Behind by | **${COUNT}** commit(s) |
+
+          ### Recent Graphite commits not in PhotoCoop
+
+          \`\`\`
+          ${COMMITS}
+          \`\`\`
+
+          ### What to do
+
+          \`\`\`sh
+          ./photocoop/scripts/sync-upstream.sh
+          ./photocoop/scripts/build-app.sh
+          ./photocoop/scripts/publish-release.sh <version>
+          \`\`\`
+
+          See [photocoop/UPDATING.md](https://github.com/${REPO}/blob/photocoop/photocoop/UPDATING.md).
+
+          ---
+          *Opened by the \`Upstream Sync Check\` workflow. Close this issue after you sync and publish.*
+          EOF
+          )
+
+          # Strip the leading tab that YAML/heredoc indentation adds to each line
+          BODY="$(printf '%s\n' "$BODY" | sed 's/^\t//')"
+
+          EXISTING="$(gh issue list --label "$LABEL" --state open --json number --jq '.[0].number // empty')"
+
+          if [[ -n "$EXISTING" ]]; then
+            gh issue edit "$EXISTING" --title "$TITLE" --body "$BODY"
+            echo "Updated issue #$EXISTING"
+          else
+            gh issue create --title "$TITLE" --body "$BODY" --label "$LABEL"
+          fi
+
+      - name: ✅ Close stale sync issue when up to date
+        if: steps.compare.outputs.behind == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          LABEL="upstream-sync"
+          EXISTING="$(gh issue list --label "$LABEL" --state open --json number --jq '.[0].number // empty')"
+
+          if [[ -n "$EXISTING" ]]; then
+            gh issue close "$EXISTING" --comment "PhotoCoop now includes Graphite master. Closing automatically."
+            echo "Closed issue #$EXISTING"
+          else
+            echo "No open upstream-sync issue."
+          fi

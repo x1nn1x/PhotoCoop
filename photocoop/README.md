@@ -21,7 +21,7 @@ The rest of the tree is Graphite. Keep PhotoCoop work in this folder when you ca
 
 ## Update Graphite & publish PhotoCoop
 
-See **[UPDATING.md](UPDATING.md)**. Short version:
+A daily **Upstream Sync Check** Action opens an `upstream-sync` issue when Graphite has commits you have not merged yet. See **[UPDATING.md](UPDATING.md)**. Short version:
 
 ```sh
 ./photocoop/scripts/sync-upstream.sh      # merge latest Graphite
