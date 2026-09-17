@@ -1,4 +1,4 @@
-# GitHub setup for PhotoCoOp
+# GitHub setup for PhotoCoop
 
 One-time steps so you can push the `photocoop` branch and publish Releases.
 
@@ -29,10 +29,10 @@ gh auth status
 ## 3. Link `origin`
 
 ```sh
-cd /path/to/PhotoCoOp
+cd /path/to/PhotoCoop
 ./photocoop/scripts/setup-origin.sh
-# or: ./photocoop/scripts/setup-origin.sh git@github.com:YOURUSER/PhotoCoOp.git
-git remote -v   # origin must be YOUR PhotoCoOp repo, not GraphiteEditor/Graphite
+# or: ./photocoop/scripts/setup-origin.sh git@github.com:YOURUSER/PhotoCoop.git
+git remote -v   # origin must be YOUR PhotoCoop repo, not GraphiteEditor/Graphite
 ```
 
 ## 4. Commit and push
@@ -41,7 +41,7 @@ git remote -v   # origin must be YOUR PhotoCoOp repo, not GraphiteEditor/Graphit
 git status
 git add -A
 git status   # confirm no PhotoCoop.app, dist/, or editor junk
-git commit -m "Add PhotoCoOp overlay, marquee tool, and publish scripts."
+git commit -m "Add PhotoCoop overlay, marquee tool, and publish scripts."
 git push -u origin photocoop
 ```
 

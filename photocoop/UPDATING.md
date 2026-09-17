@@ -1,10 +1,10 @@
-# Updating & publishing PhotoCoOp
+# Updating & publishing PhotoCoop
 
-Lightweight loop: pull Graphite → keep PhotoCoOp features → push source → publish a downloadable macOS build.
+Lightweight loop: pull Graphite → keep PhotoCoop features → push source → publish a downloadable macOS build.
 
 ## One-time setup
 
-1. Commit all PhotoCoOp work on the `photocoop` branch (features must be in git, not only on disk).
+1. Commit all PhotoCoop work on the `photocoop` branch (features must be in git, not only on disk).
 2. Log into GitHub as yourself and wire `origin` — see **[GITHUB_AUTH.md](GITHUB_AUTH.md)**.
 3. Push:
 
@@ -17,7 +17,7 @@ Remotes:
 | Remote | Points at |
 |---|---|
 | `upstream` | https://github.com/GraphiteEditor/Graphite.git |
-| `origin` | your PhotoCoOp GitHub repo |
+| `origin` | your PhotoCoop GitHub repo |
 
 ## Every time Graphite moves
 
@@ -38,7 +38,7 @@ Remotes:
 
 What end users do: open your repo → **Releases** → download **PhotoCoop-macOS.zip**.
 
-What you keep: PhotoCoOp code under `photocoop/` plus thin `PHOTOCOOP-HOOK` patches. Graphite arrives via `git merge upstream/master`, not by rewriting the fork by hand.
+What you keep: PhotoCoop code under `photocoop/` plus thin `PHOTOCOOP-HOOK` patches. Graphite arrives via `git merge upstream/master`, not by rewriting the fork by hand.
 
 ## What each script does
 

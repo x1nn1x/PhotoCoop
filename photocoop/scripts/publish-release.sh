@@ -6,7 +6,7 @@
 #   ./photocoop/scripts/publish-release.sh 0.1.0 --skip-build   # reuse existing zip
 #
 # Prerequisites:
-#   - origin remote pointing at your PhotoCoOp GitHub repo
+#   - origin remote pointing at your PhotoCoop GitHub repo
 #   - clean working tree on branch photocoop
 #   - gh CLI authenticated (brew install gh && gh auth login), OR upload the zip manually
 set -euo pipefail
@@ -38,13 +38,13 @@ fi
 
 if ! git remote get-url origin >/dev/null 2>&1; then
 	echo "error: no 'origin' remote. Create a GitHub repo, then:" >&2
-	echo "  git remote add origin git@github.com:YOU/PhotoCoOp.git" >&2
+	echo "  git remote add origin git@github.com:YOU/PhotoCoop.git" >&2
 	echo "  See photocoop/UPDATING.md" >&2
 	exit 1
 fi
 
 if [[ -n "$(git status --porcelain)" ]]; then
-	echo "error: working tree is dirty. Commit PhotoCoOp changes before publishing." >&2
+	echo "error: working tree is dirty. Commit PhotoCoop changes before publishing." >&2
 	git status -sb
 	exit 1
 fi
@@ -63,9 +63,9 @@ NOTES="$(mktemp)"
 trap 'rm -f "$NOTES"' EXIT
 
 cat >"$NOTES" <<EOF
-## PhotoCoOp ${TAG}
+## PhotoCoop ${TAG}
 
-macOS build with PhotoCoOp features on top of Graphite.
+macOS build with PhotoCoop features on top of Graphite.
 
 - Graphite base: \`${GRAPHITE_BASE}\`
 - Branch: \`${BRANCH}\` @ \`$(git rev-parse --short HEAD)\`
@@ -89,13 +89,13 @@ if git rev-parse "$TAG" >/dev/null 2>&1; then
 fi
 
 echo "==> Tagging $TAG"
-git tag -a "$TAG" -m "PhotoCoOp $TAG (Graphite ${GRAPHITE_BASE})"
+git tag -a "$TAG" -m "PhotoCoop $TAG (Graphite ${GRAPHITE_BASE})"
 git push origin "$TAG"
 
 if command -v gh >/dev/null 2>&1; then
 	echo "==> Creating GitHub Release $TAG"
 	gh release create "$TAG" "$ZIP" \
-		--title "PhotoCoOp $TAG" \
+		--title "PhotoCoop $TAG" \
 		--notes-file "$NOTES" \
 		--target photocoop
 	echo
@@ -104,7 +104,7 @@ else
 	echo
 	echo "gh CLI not installed — pushed tag $TAG, but you still need to upload the zip:"
 	echo "  1. brew install gh && gh auth login"
-	echo "  2. gh release create $TAG \"$ZIP\" --title \"PhotoCoOp $TAG\" --notes-file /dev/stdin --target photocoop <<'EOF'"
+	echo "  2. gh release create $TAG \"$ZIP\" --title \"PhotoCoop $TAG\" --notes-file /dev/stdin --target photocoop <<'EOF'"
 	cat "$NOTES"
 	echo "EOF"
 	echo

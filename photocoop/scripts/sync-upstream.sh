@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Merge the latest Graphite (upstream/master) into the current PhotoCoOp branch.
-# PhotoCoOp features stay in photocoop/ + PHOTOCOOP-HOOK sites listed in hooks.md.
+# Merge the latest Graphite (upstream/master) into the current PhotoCoop branch.
+# PhotoCoop features stay in photocoop/ + PHOTOCOOP-HOOK sites listed in hooks.md.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -19,7 +19,7 @@ if ! git remote get-url upstream >/dev/null 2>&1; then
 fi
 
 if [[ -n "$(git status --porcelain)" ]]; then
-	echo "error: working tree is dirty. Commit or stash PhotoCoOp work before syncing." >&2
+	echo "error: working tree is dirty. Commit or stash PhotoCoop work before syncing." >&2
 	git status -sb
 	exit 1
 fi
@@ -44,7 +44,7 @@ if ! git merge upstream/master --no-edit; then
 fi
 
 echo
-echo "Merged Graphite into PhotoCoOp."
+echo "Merged Graphite into PhotoCoop."
 echo "  before: $(git rev-parse --short "$BEFORE")"
 echo "  after:  $(git rev-parse --short HEAD)"
 echo "  graphite base: $(git rev-parse --short upstream/master)"
